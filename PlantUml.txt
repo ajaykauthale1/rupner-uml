@@ -1,0 +1,202 @@
+FetchAssignmentInfo
+
+@startuml
+actor User
+participant AS
+database ADB
+
+User -> AS: Get assignment information
+AS -> ADB : FetchAssignmentInfo
+ADB --> AS : AssignmentInfo
+AS --> User : Assignment information repsonse
+@enduml
+
+
+FetchClassesForUser
+
+@startuml
+actor User
+participant UDS
+participant CS
+database CDB
+database UDB
+
+User -> UDS : Get classes for the user
+UDS -> UDB : FetchClassIdsForUser
+UDS -> CS : Get classes for the classIds
+CS -> CDB : FetchClassesForIds
+
+UDB --> UDS : User classIds
+CDB --> CS : List of classes
+CS --> UDS : List of user classes
+UDS --> User : User classes repsonse
+@enduml
+
+
+FetchHotDicussionsForClass
+
+@startuml
+actor User
+participant DS
+database DDB
+
+User -> DS: Get hot dicusssions for class
+DS -> DDB : FetchHotDiscussionsForClass
+
+DDB --> DS : Hot discussions for class
+DS --> User : Hot dicussions for class response
+@enduml
+
+
+FetchHotDicussionsForUser
+
+@startuml
+actor User
+participant UDS
+participant DS
+database DDB
+database UDB
+
+User -> UDS: Get hot dicusssions for user
+UDS -> UDB : FetchClassesForUser
+UDS -> DS : Get hot discussions for classes
+DS -> DDB : FetchHotDiscussionsForClasses
+
+UDB --> UDS : Classes for user
+DDB --> DS : Hot discussions for classes
+DS --> UDS : Hot dicussions for classes response
+UDS --> User : Hot discussions for user
+@enduml
+
+
+FetchEventsForClass
+
+@startuml
+actor User
+participant ES
+participant AS
+database ADB
+database EDB
+
+User -> ES : Get events for the class
+ES -> EDB : FetchEventsForClass
+ES -> AS : Get assignments due for class
+AS -> ADB : FetchAssignmentsDueForClass
+
+EDB --> ES : Events for class
+ADB --> AS : Assignments due
+AS --> ES : Events for classes response
+ES --> User : Events for the class
+@enduml
+
+
+FetchEventsForUser
+
+@startuml
+actor User
+participant UDS
+participant ES
+participant AS
+database UDB
+database ADB
+database EDB
+
+User -> UDS : Get classes for the uses
+UDS -> UDB : FetchClassesForUser
+UDS -> ES : Get events for the classes
+ES -> EDB : FetchEventsForClasses
+UDS -> AS : Get assignments due for classes
+AS -> ADB : FetchAssignmentsDueForClass
+
+UDB --> UDS : Classes
+EDB --> ES : Events for classes
+ADB --> AS : Assignments due for classes
+AS --> UDS : Assignments due for user
+UDS --> User : Events for user
+@enduml
+
+
+FetchStudentsForClass
+
+@startuml
+actor User
+participant UDS
+database UDB
+
+User -> UDS : Get students for class
+UDS -> UDB : FetchStudentsForClass
+
+UDB --> UDS : Students
+UDS --> User : Classes student repsonse
+@enduml
+
+
+FetchAssignmentsForClass
+
+@startuml
+actor User
+participant AS
+database ADB
+
+User -> AS : Get assignments for the class
+AS -> ADB : FetchAssignmentsForClass
+
+ADB --> AS : Assignments for class
+AS --> User : Assignments for class
+@enduml
+
+
+FetchGradesForAssignment
+
+@startuml
+actor User
+participant AS
+database ADB
+
+User -> AS : Get all students grades for the assignment
+AS -> ADB : FetchGradesForAssignment
+
+ADB --> AS : Assignment grades
+AS --> User : Assignment grades
+@enduml
+
+
+FetchGradesForStudent
+
+@startuml
+actor User
+participant AS
+database ADB
+
+User -> AS : Get all grades for the student
+AS -> ADB : FetchGradesForstudent
+
+ADB --> AS : Student grades
+AS --> User : Student grades
+@enduml
+
+
+FetchDiscussionsForUser
+
+@startuml
+actor User
+participant UDS
+participant DS
+database DDB
+database UDB
+
+User -> UDS : Get all discussions for user
+UDS -> UDB : FetchAllClasses
+UDS -> DS : Get all discussions for classes
+DS -> DDB : FecthAllDiscussionsForClasses
+
+UDB --> UDS : Use classes
+DDB --> DS : Discussions for classes
+DS --> UDS : Discussions for classes
+UDS --> User : Discussions for user
+@enduml
+
+
+FetchNotificationsForUser
+
+
